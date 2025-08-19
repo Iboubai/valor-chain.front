@@ -12,7 +12,9 @@
   "dependencies": {
     "@nuxt/eslint": "^1.9.0",
     "@nuxtjs/axios": "^4.5.2",
+    "@nuxtjs/dotenv": "^1.4.2",
     "@nuxtjs/i18n": "^10.0.5",
+    "@workmate/nuxt-auth": "^1.4.0",
     "axios": "^1.8.2",
     "eslint": "^9.33.0",
     "nuxt": "^4.0.3",
