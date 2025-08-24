@@ -22,7 +22,7 @@ const { t } = useI18n()
 
 definePageMeta({ auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/' } })
 
-const credentials = ref({ email: '', password: '' })
+const credentials = ref({ email: 'doumbouyaibrahima@gmail.com', password: '89Mamankoul$$' })
 const error = ref<string | null>(null)
 
 const handleLogin = async () => {

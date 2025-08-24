@@ -1,7 +1,7 @@
 {
-  "welcome": "Bienvenue sur Valor-Chain",
+  "welcome": "Welcome on Valor-Chain",
   "login_title": "Connexion",
   "email": "Adresse e-mail",
-  "password": "Mot de passe",
-  "login_button": "Se connecter"
+  "password": "Password",
+  "login_button": "Log in"
 }

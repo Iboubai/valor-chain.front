@@ -13,7 +13,7 @@
         <AppButton variant="danger">Delete</AppButton> 
       </p>
     </NuxtLayout>
-    <AuthStatus />
+    <AuthStatus /> 
     <LangSwitcher />
   </div>
 </template>

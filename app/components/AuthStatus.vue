@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="status === 'authenticated'">
-      <p>Connecté en tant que {{ data?.user?.name }}</p>
+      <p>Connecté en tant que {{ data?.user?.data?.FirstName }}</p>
       <button @click="signOut()">Se déconnecter</button>
     </div>
     <div v-else>
