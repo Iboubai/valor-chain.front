@@ -3,12 +3,7 @@
     <NuxtLayout>
       <NuxtPage />
       <h1>Welcome to the homepage</h1>
-      <UAvatar
-    src="https://github.com/benjamincanac.png"
-    :chip="{
-      inset: true
-    }"
-  />
+      
       <p>
         <AppButton variant="primary">
           <Icon name="uil:accumulate" style="color: black" />
@@ -18,6 +13,8 @@
         <AppButton variant="danger">Delete</AppButton> 
       </p>
     </NuxtLayout>
+    <AuthStatus />
+    <LangSwitcher />
   </div>
 </template>
 <!-- <template>
