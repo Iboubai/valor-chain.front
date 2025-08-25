@@ -1,5 +1,8 @@
 <template>
-  <div class="auth-container">
+  <div class="auth-container">    
+    <div class="absolute top-4 right-4">
+      <LangSwitcher />
+    </div>
     <!-- ===================================================== -->
     <!-- ==      INTERFACE N°1 : MODERNE ET CENTRÉE         == -->
     <!-- ===================================================== -->
@@ -39,11 +42,7 @@
     <!-- ==   INTERFACE N°2 : CLASSIQUE AVEC PANNEAU LATÉRAL  == -->
     <!-- ===================================================== -->
     <div v-if="activeInterface === 'split'" class="w-full max-w-4xl flex rounded-lg shadow-2xl overflow-hidden bg-white dark:bg-gray-900">
-      <!-- Panneau de gauche (Image/Branding) -->
-       
-    <div class="absolute top-6 right-4">
-      <LangSwitcher />
-    </div>
+      <!-- Panneau de gauche (Image/Branding) -->       
       <div class="hidden md:block md:w-1/2 bg-gray-100 dark:bg-gray-800 p-12 flex-col justify-center items-center text-center">
         <!-- Vous pouvez mettre une image ici -->
         <img src="/assets/images/image_connexion.jpg" alt="Branding" class="w-full h-full object-cover">
@@ -132,7 +131,7 @@ definePageMeta({
   layout: 'auth' // Utilise un layout spécifique sans header/footer
 })
 
-const credentials = ref({ email: 'doumbouyaibrahima@gmail.com', password: '89Mamankoul$$' })
+const credentials = ref({ email: 'doumbouyaibrahima@gmail.com', password: 'mdptest1$$' })
 const error = ref<string | null>(null)
 const loading = ref(false)
 

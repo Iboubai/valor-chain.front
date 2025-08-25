@@ -1,10 +1,8 @@
+<!-- app.vue -->
 <template>
   <div>
-    <NuxtPage />
-    <!-- <AppAlert>
-      This is an auto-imported component.
-    </AppAlert> -->
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
-<script setup>
-</script>
