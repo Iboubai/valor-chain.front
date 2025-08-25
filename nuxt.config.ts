@@ -13,7 +13,9 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',       // Ajout du module i18n. [4]
     'nuxt-security'        // Ajout du module de sécurité. [11]
   ],
-
+  ui: {
+    icons: ['heroicons', 'logos', 'circle-flags'] 
+  },
   // Configuration de la sécurité
   security: {
     headers: {

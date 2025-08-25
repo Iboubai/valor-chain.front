@@ -24,6 +24,8 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@iconify-json/circle-flags": "^1.2.8",
+    "@iconify-json/logos": "^1.2.9",
     "sass-embedded": "^1.90.0"
   }
 }
