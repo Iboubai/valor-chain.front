@@ -1,7 +1,8 @@
 <!-- components/LangSwitcher.vue -->
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { DropdownItem } from '#ui/types'
+//import type { DropdownItem } from '#ui/types'
+import type { DropdownMenuItem } from '@nuxt/ui'
 
 const { locales, locale, setLocale } = useI18n()
 
@@ -18,7 +19,7 @@ const currentLocale = computed(() => {
 })
 
 // Formate la liste des langues pour le composant UDropdown
-const dropdownItems = computed<DropdownItem[][]>(() => [
+const dropdownItems = computed<DropdownMenuItem[][]>(() => [
   locales.value.map(l => ({
     label: l.name || l.code, // Utilise le nom de la langue, ou le code si le nom n'est pas défini
     icon: flagIconName(l.code),
@@ -28,7 +29,7 @@ const dropdownItems = computed<DropdownItem[][]>(() => [
 </script>
 
 <template>
-  <UDropdown v-if="currentLocale" :items="dropdownItems" :popper="{ placement: 'bottom-start' }">
+  <UDropdownMenu v-if="currentLocale" :items="dropdownItems" :popper="{ placement: 'bottom-start' }">
     <!-- C'est le bouton principal qui est affiché en permanence -->
     <!-- On utilise un slot personnalisé #default pour contrôler entièrement son apparence -->
     <UButton color="white" variant="ghost" class="p-2">
@@ -41,7 +42,7 @@ const dropdownItems = computed<DropdownItem[][]>(() => [
       <!-- Affiche la petite flèche vers le bas -->
       <UIcon name="i-heroicons-chevron-down-20-solid" class="w-5 h-5" />
     </UButton>
-  </UDropdown>
+  </UDropdownMenu>
 </template>
 
 <style scoped>

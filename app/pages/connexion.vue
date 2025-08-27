@@ -15,13 +15,13 @@
       </template>
 
       <UForm :state="credentials" class="space-y-4" @submit="handleLogin">
-        <UFormGroup label="Email" name="email">
+        <UFormField label="Email" name="email">
           <UInput v-model="credentials.email" type="email" placeholder="vous@exemple.com" :icon="emailIcon" size="xl" />
-        </UFormGroup>
+        </UFormField>
 
-        <UFormGroup label="Mot de passe" name="password">
+        <UFormField label="Mot de passe" name="password">
           <UInput v-model="credentials.password" type="password" placeholder="••••••••" :icon="passwordIcon" size="xl" />
-        </UFormGroup>
+        </UFormField>
 
         <div class="text-right">
           <UButton variant="link" :padded="false">Mot de passe oublié ?</UButton>
@@ -45,7 +45,7 @@
       <!-- Panneau de gauche (Image/Branding) -->       
       <div class="hidden md:block md:w-1/2 bg-gray-100 dark:bg-gray-800 p-12 flex-col justify-center items-center text-center">
         <!-- Vous pouvez mettre une image ici -->
-        <img src="/assets/images/image_connexion.jpg" alt="Branding" class="w-full h-full object-cover">
+        <!-- <img src="/assets/images/image_connexion.jpg" alt="Branding" class="w-full h-full object-cover"> -->
         <div class="flex flex-col justify-center h-full">
             <UIcon name="i-heroicons-shield-check" class="text-6xl text-green-500 mx-auto" />
             <h2 class="mt-6 text-2xl font-bold text-gray-900 dark:text-white">Sécurisé et Fiable</h2>
@@ -59,13 +59,13 @@
         <p class="text-gray-600 dark:text-gray-400 mb-6">Connectez-vous à votre compte.</p>
         
         <UForm :state="credentials" class="space-y-4" @submit="handleLogin">
-          <UFormGroup label="Email" name="email">
+          <UFormField label="Email" name="email">
             <UInput v-model="credentials.email" placeholder="vous@exemple.com" :icon="emailIcon" />
-          </UFormGroup>
+          </UFormField>
 
-          <UFormGroup label="Mot de passe" name="password">
+          <UFormField label="Mot de passe" name="password">
             <UInput v-model="credentials.password" type="password" placeholder="••••••••" :icon="passwordIcon" />
-          </UFormGroup>
+          </UFormField>
 
           <UButton type="submit" :loading="loading" :label="$t('login_button')" :color="primaryColor" block />
         </UForm>
@@ -98,13 +98,13 @@
       <UDivider label="OU" class="my-6" />
 
       <UForm :state="credentials" class="space-y-4" @submit="handleLogin">
-        <UFormGroup label="Email" name="email">
+        <UFormField label="Email" name="email">
           <UInput v-model="credentials.email" type="email" placeholder="vous@exemple.com" />
-        </UFormGroup>
+        </UFormField>
 
-        <UFormGroup label="Mot de passe" name="password">
+        <UFormField label="Mot de passe" name="password">
           <UInput v-model="credentials.password" type="password" placeholder="••••••••" />
-        </UFormGroup>
+        </UFormField>
 
         <UButton type="submit" :loading="loading" label="Se connecter avec l'email" :color="primaryColor" block />
       </UForm>

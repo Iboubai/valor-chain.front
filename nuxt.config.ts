@@ -14,11 +14,19 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/test-utils',
   ],
+  
+  css: ['~/assets/css/main.css'],
+
+  runtimeConfig: {
+    public: { 
+      apiBase: process.env.API_BASE_URL || 'https://localhost:7028/api'
+    }
+  },
 
   // 2. CONFIGURATION DE L'AUTHENTIFICATION
   auth: {
     // On utilise le proxy Nitro, donc le baseURL doit être un chemin relatif.
-    baseURL: 'https://localhost:7028/api/auth',
+    baseURL: process.env.API_BASE_URL + '/api/auth',
     provider: {
       type: 'local', // Stratégie "locale" pour une authentification par identifiants. [2]
       endpoints: {
@@ -86,7 +94,7 @@ export default defineNuxtConfig({
       { code: 'it', iso: 'it-IT', name: 'Italiano', file: 'it.json' },
       { code: 'pt', iso: 'pt-PT', name: 'Português', file: 'pt.json' },
       { code: 'es', iso: 'es-ES', name: 'Español', file: 'es.json' },
-      { code: 'sus', iso: 'sus-GN', name: 'Soussou', file: 'sus.json' },
+      { code: 'sus', iso: 'sus-GN', name: 'Soussou', file: 'ff.json' },
       { code: 'ff', iso: 'ff-GN', name: 'Peul', file: 'ff.json' },
       { code: 'man', iso: 'man-GN', name: 'Malinké', file: 'man.json' }
     ],
