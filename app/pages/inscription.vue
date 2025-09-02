@@ -1,6 +1,9 @@
 <!-- pages/inscription.vue -->
 <template>
   <div class="min-h-screen flex items-center justify-center">
+    <div class="absolute top-4 right-4">
+      <LangSwitcher />
+    </div>
     <UCard class="max-w-md w-full">
       <template #header>
         <h1 class="text-2xl font-bold text-center">Créer un compte</h1>

@@ -1,8 +1,6 @@
 <!-- components/LangSwitcher.vue -->
 <script setup lang="ts">
 import { computed } from 'vue'
-//import type { DropdownItem } from '#ui/types'
-import type { DropdownMenuItem } from '@nuxt/ui'
 
 const { locales, locale, setLocale } = useI18n()
 

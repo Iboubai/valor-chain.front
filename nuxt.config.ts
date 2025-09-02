@@ -2,8 +2,14 @@
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
-
+  
+  devtools: {
+    enabled: true,
+    vscode: {
+      // Autorise toutes les IPs pour le VFS
+      allowedIPs: ['127.0.0.1']
+    }
+  },
   // 1. DÉCLARATION DES MODULES
   modules: [
     '@nuxt/ui',
@@ -19,7 +25,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: { 
-      apiBase: process.env.API_BASE_URL || 'https://localhost:7028/api'
+      apiBase: process.env.API_BASE_URL || 'https://localhost:7028'
     }
   },
 
@@ -93,10 +99,7 @@ export default defineNuxtConfig({
       { code: 'zh', iso: 'zh-CN', name: '中文', file: 'zh.json' },
       { code: 'it', iso: 'it-IT', name: 'Italiano', file: 'it.json' },
       { code: 'pt', iso: 'pt-PT', name: 'Português', file: 'pt.json' },
-      { code: 'es', iso: 'es-ES', name: 'Español', file: 'es.json' },
-      { code: 'sus', iso: 'sus-GN', name: 'Soussou', file: 'ff.json' },
-      { code: 'ff', iso: 'ff-GN', name: 'Peul', file: 'ff.json' },
-      { code: 'man', iso: 'man-GN', name: 'Malinké', file: 'man.json' }
+      { code: 'es', iso: 'es-ES', name: 'Español', file: 'es.json' }
     ],
     lazy: true,
     langDir: 'locales',

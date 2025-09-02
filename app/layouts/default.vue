@@ -4,11 +4,11 @@ const { data: user, signOut } = useAuth()
 
 // Définition des liens de navigation pour la barre latérale
 const links = [
-  { label: 'Tableau de bord', icon: 'i-heroicons-squares-2x2', to: '/' },
+  { label: 'Tableau de bord', icon: 'i-heroicons-squares-2x2', to: '/' }/*,
   { label: 'Mes Actifs', icon: 'i-heroicons-chart-pie', to: '/actifs' },
   { label: 'Transactions', icon: 'i-heroicons-arrows-right-left', to: '/transactions' },
   { label: 'Profil', icon: 'i-heroicons-user-circle', to: '/profil' },
-  { label: 'Paramètres', icon: 'i-heroicons-cog-6-tooth', to: '/parametres' }
+  { label: 'Paramètres', icon: 'i-heroicons-cog-6-tooth', to: '/parametres' }*/
 ]
 
 const isMobileMenuOpen = ref(false)
@@ -25,7 +25,7 @@ const isMobileMenuOpen = ref(false)
         <span class="font-bold text-xl">Valor-Chain</span>
       </div>
       
-      <UVerticalNavigation :links="links" />
+      <UNavigationMenu :links="links" />
     </aside>
 
     <!-- ================================= -->
@@ -49,12 +49,12 @@ const isMobileMenuOpen = ref(false)
         <div class="flex items-center gap-4">
           <LangSwitcher /> <!-- On réutilise le sélecteur de langue ! -->
           
-          <UDropdown :items="[[{ label: 'Déconnexion', icon: 'i-heroicons-arrow-left-on-rectangle', click: () => signOut() }]]">
+          <UDropdownMenu :items="[[{ label: 'Déconnexion', icon: 'i-heroicons-arrow-left-on-rectangle', click: () => signOut() }]]">
             <UButton color="white" variant="ghost" class="flex items-center gap-2">
               <UAvatar :alt="user?.name || 'U'" size="sm" />
               <span class="hidden sm:block font-medium">{{ user?.name }}</span>
             </UButton>
-          </UDropdown>
+          </UDropdownMenu>
         </div>
       </header>
 
@@ -73,7 +73,7 @@ const isMobileMenuOpen = ref(false)
           <UIcon name="i-heroicons-shield-check-solid" class="h-8 w-8 text-green-500" />
           <span class="font-bold text-xl">Valor-Chain</span>
         </div>
-        <UVerticalNavigation :links="links" @click="isMobileMenuOpen = false" />
+        <UNavigationMenu :links="links" @click="isMobileMenuOpen = false" />
       </div>
     </USlideover>
   </div>

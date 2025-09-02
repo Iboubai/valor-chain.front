@@ -95,7 +95,7 @@
         <UButton color="white" block label="Continuer avec GitHub" icon="i-logos-github-icon" />
       </div>
 
-      <UDivider label="OU" class="my-6" />
+      <USeparator label="OU" class="my-6" />
 
       <UForm :state="credentials" class="space-y-4" @submit="handleLogin">
         <UFormField label="Email" name="email">
@@ -131,7 +131,7 @@ definePageMeta({
   layout: 'auth' // Utilise un layout spécifique sans header/footer
 })
 
-const credentials = ref({ email: 'doumbouyaibrahima@gmail.com', password: 'mdptest1$$' })
+const credentials = ref({ email: 'doumbouyaibrahima@gmail.com', password: '89Mamankoul$$' })
 const error = ref<string | null>(null)
 const loading = ref(false)
 
