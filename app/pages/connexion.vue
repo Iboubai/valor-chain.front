@@ -60,12 +60,17 @@
         
         <UForm :state="credentials" class="space-y-4" @submit="handleLogin">
           <UFormField label="Email" name="email">
-            <UInput v-model="credentials.email" placeholder="vous@exemple.com" :icon="emailIcon" />
+            <UInput v-model="credentials.email" placeholder="vous@exemple.com" :icon="emailIcon" class="w-full" />
           </UFormField>
 
-          <UFormField label="Mot de passe" name="password">
-            <UInput v-model="credentials.password" type="password" placeholder="••••••••" :icon="passwordIcon" />
-          </UFormField>
+          <UFormField label="Mot de passe" name="password" >
+            <UInput v-model="credentials.password" :type="showPassword ? 'text' : 'password'" placeholder="••••••••" :icon="passwordIcon" class="w-full" />
+              <button type="button"
+                class="absolute right-2 top-2 text-gray-500"
+                @click="showPassword = !showPassword">
+                <UIcon :name="showPassword ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'" />
+              </button>
+            </UFormField>
 
           <UButton type="submit" :loading="loading" :label="$t('login_button')" :color="primaryColor" block />
         </UForm>
@@ -134,6 +139,8 @@ definePageMeta({
 const credentials = ref({ email: 'doumbouyaibrahima@gmail.com', password: '89Mamankoul$$' })
 const error = ref<string | null>(null)
 const loading = ref(false)
+
+const showPassword = ref(false)
 
 const handleLogin = async () => {
   loading.value = true

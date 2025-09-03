@@ -36,8 +36,8 @@ export default defineNuxtConfig({
     provider: {
       type: 'local', // Stratégie "locale" pour une authentification par identifiants. [2]
       endpoints: {
-        signIn: { path: '/users/login', method: 'post' },
-        signOut: { path: '/users/logout', method: 'post' },
+        signIn: { path: '/login', method: 'post' },
+        signOut: { path: '/logout', method: 'post' },
         signUp: { path: '/createuser', method: 'post' },
         getSession: { path: '/me', method: 'get' }
       },
