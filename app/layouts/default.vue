@@ -1,17 +1,18 @@
 <!-- layouts/default.vue -->
 <script setup lang="ts">
-const { data: user, signOut } = useAuth()
+  const { data: user, signOut } = useAuth()
 
-// Définition des liens de navigation pour la barre latérale
-const links = [
-  { label: 'Tableau de bord', icon: 'i-heroicons-squares-2x2', to: '/' }/*,
-  { label: 'Mes Actifs', icon: 'i-heroicons-chart-pie', to: '/actifs' },
-  { label: 'Transactions', icon: 'i-heroicons-arrows-right-left', to: '/transactions' },
-  { label: 'Profil', icon: 'i-heroicons-user-circle', to: '/profil' },
-  { label: 'Paramètres', icon: 'i-heroicons-cog-6-tooth', to: '/parametres' }*/
-]
+  // Définition des liens de navigation pour la barre latérale
+  const links = [
+    { label: 'Tableau de bord', icon: 'i-heroicons-squares-2x2', to: '/' }/*,
+    { label: 'Mes Actifs', icon: 'i-heroicons-chart-pie', to: '/actifs' },
+    { label: 'Transactions', icon: 'i-heroicons-arrows-right-left', to: '/transactions' },
+    { label: 'Profil', icon: 'i-heroicons-user-circle', to: '/profil' },
+    { label: 'Paramètres', icon: 'i-heroicons-cog-6-tooth', to: '/parametres' }*/
+  ]
 
-const isMobileMenuOpen = ref(false)
+  const isMobileMenuOpen = ref(false)
+  console.log("Utilisateur connecté :", user.value.data)
 </script>
 
 <template>
@@ -27,7 +28,6 @@ const isMobileMenuOpen = ref(false)
       
       <UNavigationMenu :links="links" />
     </aside>
-
     <!-- ================================= -->
     <!-- ==   HEADER ET CONTENU PRINCIPAL == -->
     <!-- ================================= -->
@@ -51,7 +51,7 @@ const isMobileMenuOpen = ref(false)
           
           <UDropdownMenu :items="[[{ label: 'Déconnexion', icon: 'i-heroicons-arrow-left-on-rectangle', click: () => signOut() }]]">
             <UButton color="white" variant="ghost" class="flex items-center gap-2">
-              <UAvatar :alt="user?.name || 'U'" size="sm" />
+              <UAvatar :alt="user?.value?.data?.firstName || 'U'" size="sm" />
               <span class="hidden sm:block font-medium">{{ user?.name }}</span>
             </UButton>
           </UDropdownMenu>

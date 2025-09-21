@@ -49,7 +49,17 @@ export default defineNuxtConfig({
         login: '/connexion'
       }
     },
-    globalAppMiddleware: true // Active le middleware d'authentification sur toutes les pages
+    globalAppMiddleware: true, // Active le middleware d'authentification sur toutes les pages
+    // ✅ options pour les cookies
+    session: {
+      enableRefreshOnWindowFocus: true, // rafraîchit la session si expirée
+      cookie: {
+        secure: process.env.NODE_ENV === 'production', // https obligatoire en prod
+        sameSite: 'lax', // protection CSRF basique
+        httpOnly: true,  // ⚡ empêche l’accès JS (XSS)
+        maxAge: 60 * 60 * 24 * 7 // 7 jours
+      }
+    }
   },
 
   // 3. CONFIGURATION DU PROXY NITRO (essentiel pour le développement)
