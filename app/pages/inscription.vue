@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed, watch } from 'vue'
 import type { FormError } from '#ui/types'
+const { get, post } = useApi()
 
 // --- CONFIGURATION ---
 definePageMeta({
@@ -34,12 +35,12 @@ const loading = ref(false)
 const apiError = ref<string | null>(null)
 const url = useRuntimeConfig().public.apiBase;
 
-const regionsRes = await $fetch(`${url}/api/locations/regions/getall`, { method: 'GET' })
+const regionsRes = await get(`/api/locations/regions/getall`)
 const regions = ref(regionsRes.data)
 
 const prefectures = ref([])
 const subPrefectures = ref([])
-const valueChainOptionsRes = await $fetch(`${url}/api/users/getalluserprofils`, { method: 'GET' })
+const valueChainOptionsRes = await get(`/api/users/getalluserprofils`)
 const valueChainOptions = ref(valueChainOptionsRes.data)
 
 // --- LOGIQUE DE NAVIGATION ---
@@ -67,7 +68,7 @@ watch(() => formData.region, async (newRegionId) => {
   }
   
   // Remplacer par votre appel API réel
-  const prefectureRes = await $fetch(`${url}/api/locations/prefectures/${newRegionId}`)
+  const prefectureRes = await get(`/api/locations/prefectures/${newRegionId}`)
   prefectures.value = prefectureRes.data
 })
 
@@ -78,7 +79,7 @@ watch(() => formData.prefecture, async (newPrefectureId) => {
         subPrefectures.value = []
         return
     }
-    const sousPrefectureRes = await $fetch(`${url}/api/locations/sous-prefectures/${newPrefectureId}`)
+    const sousPrefectureRes = await get(`/api/locations/sous-prefectures/${newPrefectureId}`)
     subPrefectures.value = sousPrefectureRes.data    
 })
 
@@ -98,7 +99,7 @@ const handleStep1 = async () => {
       return
     }
     // Vérification de l'email
-    const emailResponse = await $fetch(`${url}/api/users/check-email`, { method: 'POST', body: { email: formData.email } })
+    const emailResponse = await post(`/api/users/check-email`, formData.email)
     const emailExists = emailResponse.data;
     if (emailExists) {
       apiError.value = "Cette adresse e-mail est déjà utilisée."
@@ -106,7 +107,7 @@ const handleStep1 = async () => {
     }
 
     // Vérification du téléphoneNumber
-    const phoneResponse = await $fetch(`${url}/api/users/check-phone`, { method: 'POST', body: { phoneNumber: formData.phoneNumber } })
+    const phoneResponse = await post(`/api/users/check-phone`, formData.phoneNumber)
     const phoneExists = phoneResponse.data;
     if (phoneExists) {
       apiError.value = "Ce numéro de téléphone est déjà utilisé."

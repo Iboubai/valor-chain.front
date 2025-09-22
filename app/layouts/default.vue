@@ -6,7 +6,7 @@ import type { DropdownMenuItem } from '@nuxt/ui'
 
 const { data: user, signOut } = useAuth()
 
-//console.log("Données utilisateur du backend:", user.value?.data)
+console.log("Données utilisateur du backend:", user)
 
 // 3. GESTION DU MENU MOBILE
 const isMobileMenuOpen = ref(false)
@@ -132,12 +132,17 @@ const itemsMenuProfil = ref<DropdownMenuItem[]>([
         <UNavigationMenu :links="navigationLinks" @click="isMobileMenuOpen = false" />
       </div>
     </USlideover> -->
-    <USlideover v-model:open="isProfileEditorOpen" title="First slideover">
-      <!-- On passe l'état d'ouverture et on écoute l'événement 'close' -->
-      <!-- <ProfileEditor @close="isProfileEditorOpen = false" /> -->
+    <USlideover v-model:open="isProfileEditorOpen" title="First slideover" :ui="{ footer: 'justify-end' }">      
+      <template #header>
+        <div class="flex items-center justify">
+          <h2 class="text-xl font-semibold">Modifier mon profil</h2>          
+        </div>
+      </template>
+
       <template #body>
         <ProfileEditor @close="isProfileEditorOpen = false" />
       </template>
     </USlideover>
+
   </div>
 </template>

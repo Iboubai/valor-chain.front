@@ -2,18 +2,21 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import type { Form } from '#ui/types'
+const { data: user, refresh, token } = useAuth() // `refresh` permet de recharger les données utilisateur
+const { patch } = useApi()
 
 // On définit les événements que ce composant peut émettre (ici, juste 'close')
 const emit = defineEmits(['close'])
 
-const { data: user, refresh } = useAuth() // `refresh` permet de recharger les données utilisateur
 const form = ref<Form<any> | null>(null)
 const loading = ref(false)
 const toast = useToast()
+const url = useRuntimeConfig().public.apiBase;
 
 // On crée une copie locale et réactive des données de l'utilisateur pour le formulaire.
 // C'est une bonne pratique pour ne pas modifier directement l'objet `user` global.
 const state = reactive({
+  id: user.value?.data?.id || null,
   firstName: '',
   lastName: '',
   phoneNumber: ''
@@ -34,15 +37,11 @@ async function onSubmit() {
   
   // Valide le formulaire avant de soumettre
   await form.value.validate()
-
+console.log("test")
   loading.value = true
   try {
     // Appel à l'API pour mettre à jour l'utilisateur
-    // Assurez-vous d'avoir un endpoint PATCH ou PUT pour cela.
-    await $fetch(`/api/auth/user/${user.value?.data.id}`, {
-      method: 'PATCH', // ou 'PUT'
-      body: state
-    })
+    await patch(`/api/auth/${user.value?.data.id}`, state)
 
     // Si la mise à jour réussit :
     toast.add({ title: 'Profil mis à jour avec succès !', color: 'green' })
@@ -62,17 +61,7 @@ async function onSubmit() {
 }
 </script>
 
-<template>
-  <!-- Le UCard à l'intérieur du Slideover donne une belle structure -->
-  <UCard class="flex flex-col flex-1" :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
-    <template #header>
-      <div class="flex items-center justify-between">
-        <h2 class="text-xl font-semibold">Modifier mon profil</h2>
-        <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" @click="$emit('close')" />
-      </div>
-    </template>
-
-    <!-- Contenu principal du formulaire -->
+<template>  
     <UForm ref="form" :state="state" class="space-y-4 p-4" @submit="onSubmit">
       <UFormField label="Prénom" name="firstName" required>
         <UInput v-model="state.firstName" />
@@ -91,12 +80,8 @@ async function onSubmit() {
         <UInput :model-value="user?.data?.email" disabled icon="i-heroicons-envelope" />
       </UFormField>
     </UForm>
-
-    <template #footer>
-      <div class="flex justify-end gap-4">
-        <UButton variant="outline" @click="$emit('close')">Annuler</UButton>
-        <UButton :loading="loading" @click="onSubmit">Enregistrer les modifications</UButton>
-      </div>
-    </template>
-  </UCard>
+    <div class="flex justify-end gap-4">
+      <UButton variant="outline" @click="$emit('close')">Annuler</UButton>
+      <UButton :loading="loading" @click="onSubmit">Enregistrer les modifications</UButton>
+    </div>
 </template>
