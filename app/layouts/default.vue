@@ -6,8 +6,6 @@ import type { DropdownMenuItem } from '@nuxt/ui'
 
 const { data: user, signOut } = useAuth()
 
-console.log("Données utilisateur du backend:", user)
-
 // 3. GESTION DU MENU MOBILE
 const isMobileMenuOpen = ref(false)
 
@@ -17,23 +15,74 @@ const userFirstName = computed(() => user.value?.data?.firstName || '')
 const userFullName = computed(() => `${user.value?.data?.firstName || ''} ${user.value?.data?.lastName || ''}`.trim())
 
 //{ label: 'Tableau de bord', icon: 'i-heroicons-squares-2x2', to: '/' }
+
 const itemsVerticalNav = ref<NavigationMenuItem[]>([
+  // 1. Le point d'entrée : La vue d'ensemble
   {
     label: 'Tableau de bord',
-    icon: 'i-heroicons-squares-2x2',
+    icon: 'i-heroicons-squares-2x2', // Parfait, icône de vue globale
     to: '/'
   },
+
+  // 2. Le Cœur de l'Exploitation : Les Unités de Production
   {
-    label: 'Mes Activités',
-    icon: 'i-heroicons-bolt',
+    label: 'Mon Exploitation',
+    icon: 'i-heroicons-map-pin', // Icône de lieu, de "territoire"
     children: [
-      { label: 'Mon exploitation', icon: 'i-heroicons-cpu-chip', to: '/activities/production' }
+      { label: 'Parcelles & Cultures', icon: 'i-heroicons-sun', to: '/exploitation/parcelles' }, // Pour l'agricole
+      { label: 'Cheptels & Animaux', icon: 'i-heroicons-user-group', to: '/exploitation/cheptels' }, // Pour l'élevage
+      { label: 'Bassins & Étangs', icon: 'i-heroicons-waves', to: '/exploitation/bassins' } // Pour l'halieutique
     ]
   },
+
+  // 3. Les Actions Quotidiennes : Le Journal de Bord
   {
-    label: 'Contact',
-    icon: 'i-heroicons-lifebuoy',
-    to: '/contact'
+    label: 'Opérations',
+    icon: 'i-heroicons-calendar-days', // Icône de planification, d'action
+    children: [
+      { label: 'Planifier une tâche', icon: 'i-heroicons-plus-circle', to: '/operations/planifier' },
+      { label: 'Saisir une intervention', icon: 'i-heroicons-pencil-square', to: '/operations/saisir' }, // L'action la plus fréquente !
+      { label: 'Historique des activités', icon: 'i-heroicons-clock', to: '/operations/historique' }
+    ]
+  },
+
+  // 4. La Gestion des Ressources : Le Stock
+  {
+    label: 'Ressources',
+    icon: 'i-heroicons-beaker', // Icône d'intrants, de "science"
+    children: [
+      { label: 'Stocks (Intrants)', icon: 'i-heroicons-archive-box', to: '/ressources/intrants' },
+      { label: 'Matériel & Équipement', icon: 'i-heroicons-wrench-screwdriver', to: '/ressources/materiel' },
+      { label: 'Personnel', icon: 'i-heroicons-users', to: '/ressources/personnel' }
+    ]
+  },
+
+  // 5. Le Résultat du Travail : La Production
+  {
+    label: 'Productions',
+    icon: 'i-heroicons-gift', // Icône de "cadeau", de ce qu'on récolte
+    children: [
+      { label: 'Récoltes & Ventes', icon: 'i-heroicons-shopping-cart', to: '/productions/recoltes' },
+      { label: 'Stocks (Produits)', icon: 'i-heroicons-cube', to: '/productions/stocks' },
+      { label: 'Traçabilité', icon: 'i-heroicons-magnifying-glass-circle', to: '/productions/tracabilite' }
+    ]
+  },
+
+  // 6. L'Analyse et la Synthèse
+  {
+    label: 'Analyses',
+    icon: 'i-heroicons-chart-pie', // Icône universelle pour l'analyse
+    children: [
+        { label: 'Performances', icon: 'i-heroicons-chart-bar', to: '/analyses/performance' },
+        { label: 'Rapports Financiers', icon: 'i-heroicons-banknotes', to: '/analyses/financier' }
+    ]
+  },
+
+  // 7. Section "Aide" (regroupant le contact)
+  {
+    label: 'Aide & Support',
+    icon: 'i-heroicons-question-mark-circle',
+    to: '/support' // ou garder un sous-menu si besoin
   }
 ])
 

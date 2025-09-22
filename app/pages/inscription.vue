@@ -149,11 +149,8 @@ const submitRegistration = async () => {
   apiError.value = null
   try {
     // Appel final pour créer l'utilisateur avec toutes les données
-    console.log('Données à envoyer :', formData)
-    const result = await $fetch(`${url}/api/auth/createuser`, {
-      method: 'POST',
-      body: formData
-    })
+    
+    const result = await post(`/api/auth/createuser`, formData)
     console.log('Inscription réussie !', result)
     // Rediriger vers la page de connexion ou directement connecter l'utilisateur
     const router = useRouter()

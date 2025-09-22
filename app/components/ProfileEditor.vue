@@ -37,11 +37,10 @@ async function onSubmit() {
   
   // Valide le formulaire avant de soumettre
   await form.value.validate()
-console.log("test")
   loading.value = true
   try {
     // Appel à l'API pour mettre à jour l'utilisateur
-    await patch(`/api/auth/${user.value?.data.id}`, state)
+    await patch(`/api/auth/${user.value?.data.id}`, state, token.value || undefined)
 
     // Si la mise à jour réussit :
     toast.add({ title: 'Profil mis à jour avec succès !', color: 'green' })
