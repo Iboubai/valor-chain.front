@@ -6,20 +6,24 @@ definePageMeta({
   // Vous pouvez ajouter des métadonnées spécifiques à la page ici si nécessaire
 })
 
-const { data: user } = useAuth()
+const { data: user, signOut } = useAuth()
+const userFirstName = computed(() => user.value?.data?.firstName || '')
+const userFullName = computed(() => `${user.value?.data?.firstName || ''} ${user.value?.data?.lastName || ''}`.trim())
+
 </script>
 
 <template>
   <div>
-    <!-- Titre de la page -->
+    Bienvenue sur votre tableau de bord, {{ userFullName }} !
+    <!-- Titre de la page --
     <div class="mb-8">
       <h1 class="text-3xl font-bold">Tableau de bord</h1>
       <p class="text-gray-500 dark:text-gray-400">Bienvenue, {{ user?.name }}. Voici un aperçu de votre compte.</p>
     </div>
 
-    <!-- Grille de cartes pour le contenu -->
+    <!-- Grille de cartes pour le contenu --
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Carte 1 -->
+      <!-- Carte 1 --
       <UCard>
         <template #header>
           <div class="flex items-center gap-2">
@@ -31,7 +35,7 @@ const { data: user } = useAuth()
         <p class="text-sm text-green-500">+5.2% depuis hier</p>
       </UCard>
 
-      <!-- Carte 2 -->
+      <!-- Carte 2 --
       <UCard>
         <template #header>
           <div class="flex items-center gap-2">
@@ -43,7 +47,7 @@ const { data: user } = useAuth()
         <p class="text-sm text-gray-500">3 actifs différents</p>
       </UCard>
 
-      <!-- Carte 3 -->
+      <!-- Carte 3 --
       <UCard>
         <template #header>
           <div class="flex items-center gap-2">
@@ -56,7 +60,7 @@ const { data: user } = useAuth()
       </UCard>
     </div>
 
-    <!-- Vous pouvez ajouter d'autres sections ici -->
+    <!-- Vous pouvez ajouter d'autres sections ici --
     <div class="mt-8">
       <UCard>
         <template #header>
@@ -64,6 +68,6 @@ const { data: user } = useAuth()
         </template>
         <p>Un tableau ou une liste de vos dernières activités...</p>
       </UCard>
-    </div>
+    </div>-->
   </div>
 </template>

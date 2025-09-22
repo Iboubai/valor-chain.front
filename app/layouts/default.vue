@@ -1,18 +1,67 @@
 <!-- layouts/default.vue -->
 <script setup lang="ts">
-  const { data: user, signOut } = useAuth()
+import { computed, ref } from 'vue'
+import type { NavigationMenuItem } from '#ui/types'
+import type { DropdownMenuItem } from '@nuxt/ui'
 
-  // Définition des liens de navigation pour la barre latérale
-  const links = [
-    { label: 'Tableau de bord', icon: 'i-heroicons-squares-2x2', to: '/' }/*,
-    { label: 'Mes Actifs', icon: 'i-heroicons-chart-pie', to: '/actifs' },
-    { label: 'Transactions', icon: 'i-heroicons-arrows-right-left', to: '/transactions' },
-    { label: 'Profil', icon: 'i-heroicons-user-circle', to: '/profil' },
-    { label: 'Paramètres', icon: 'i-heroicons-cog-6-tooth', to: '/parametres' }*/
-  ]
+const { data: user, signOut } = useAuth()
 
-  const isMobileMenuOpen = ref(false)
-  console.log("Utilisateur connecté :", user.value.data)
+//console.log("Données utilisateur du backend:", user.value?.data)
+
+// 3. GESTION DU MENU MOBILE
+const isMobileMenuOpen = ref(false)
+
+// 4. EXTRACTION DES DONNÉES UTILISATEUR POUR LE TEMPLATE
+// On utilise des computed pour rendre le template plus propre et éviter les erreurs si user est null
+const userFirstName = computed(() => user.value?.data?.firstName || '')
+const userFullName = computed(() => `${user.value?.data?.firstName || ''} ${user.value?.data?.lastName || ''}`.trim())
+
+//{ label: 'Tableau de bord', icon: 'i-heroicons-squares-2x2', to: '/' }
+const itemsVerticalNav = ref<NavigationMenuItem[]>([
+  {
+    label: 'Tableau de bord',
+    icon: 'i-heroicons-squares-2x2',
+    to: '/'
+  },
+  {
+    label: 'Mes Activités',
+    icon: 'i-heroicons-bolt',
+    children: [
+      { label: 'Mon exploitation', icon: 'i-heroicons-cpu-chip', to: '/activities/production' }
+    ]
+  },
+  {
+    label: 'Contact',
+    icon: 'i-heroicons-lifebuoy',
+    to: '/contact'
+  }
+])
+
+const isProfileEditorOpen = ref(false)
+const showProfilePanel = ref(false)
+
+const openProfilePanel = () => {
+  isProfileEditorOpen.value = true
+  console.log("Ouverture du panneau de profil")
+}
+
+const itemsMenuProfil = ref<DropdownMenuItem[]>([
+  {
+    label: 'Profile',
+    icon: 'i-lucide-user',
+    onSelect: openProfilePanel
+  },
+  {
+    label: 'Settings',
+    icon: 'i-lucide-cog'
+  },
+  { 
+    label: 'Déconnexion', 
+    icon: 'i-heroicons-arrow-left-on-rectangle', 
+    click: () => signOut() 
+  }
+])
+
 </script>
 
 <template>
@@ -26,15 +75,18 @@
         <span class="font-bold text-xl">Valor-Chain</span>
       </div>
       
-      <UNavigationMenu :links="links" />
+      <!-- CORRECTION : Le composant s'appelle UVerticalNavigation -->
+      <!-- <UNavigationMenu :links="itemsVerticalNav" /> -->
+      
+      <UNavigationMenu orientation="vertical" :items="itemsVerticalNav" class="data-[orientation=vertical]:w-48" />
     </aside>
+
     <!-- ================================= -->
     <!-- ==   HEADER ET CONTENU PRINCIPAL == -->
     <!-- ================================= -->
     <div class="md:ml-64">
       <!-- HEADER -->
       <header class="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 dark:border-gray-800 bg-white/75 dark:bg-gray-900/75 backdrop-blur-lg px-4 sm:px-6 lg:px-8 h-16">
-        <!-- Bouton pour menu mobile -->
         <UButton
           class="md:hidden"
           color="gray"
@@ -47,12 +99,15 @@
 
         <!-- Menu Profil -->
         <div class="flex items-center gap-4">
-          <LangSwitcher /> <!-- On réutilise le sélecteur de langue ! -->
+          <LangSwitcher />
           
-          <UDropdownMenu :items="[[{ label: 'Déconnexion', icon: 'i-heroicons-arrow-left-on-rectangle', click: () => signOut() }]]">
+          <!-- CORRECTION : Le composant s'appelle UDropdown -->
+          <UDropdownMenu :items="itemsMenuProfil">
             <UButton color="white" variant="ghost" class="flex items-center gap-2">
-              <UAvatar :alt="user?.value?.data?.firstName || 'U'" size="sm" />
-              <span class="hidden sm:block font-medium">{{ user?.name }}</span>
+              <!-- CORRECTION : On utilise la donnée calculée pour l'avatar -->
+              <UAvatar :alt="userFirstName.charAt(0)" size="sm" />
+              <!-- CORRECTION : On affiche le nom complet de l'utilisateur -->
+              <span class="hidden sm:block font-medium">{{ userFullName }}</span>
             </UButton>
           </UDropdownMenu>
         </div>
@@ -67,14 +122,22 @@
     <!-- ================================= -->
     <!-- ==       MENU MOBILE (Slide)   == -->
     <!-- ================================= -->
-    <USlideover v-model="isMobileMenuOpen">
+    <!-- <USlideover v-model="isMobileMenuOpen">
       <div class="p-4 flex-1">
         <div class="flex items-center gap-2 mb-8">
           <UIcon name="i-heroicons-shield-check-solid" class="h-8 w-8 text-green-500" />
           <span class="font-bold text-xl">Valor-Chain</span>
         </div>
-        <UNavigationMenu :links="links" @click="isMobileMenuOpen = false" />
+        <!-- CORRECTION : Le composant s'appelle UVerticalNavigation --
+        <UNavigationMenu :links="navigationLinks" @click="isMobileMenuOpen = false" />
       </div>
+    </USlideover> -->
+    <USlideover v-model:open="isProfileEditorOpen" title="First slideover">
+      <!-- On passe l'état d'ouverture et on écoute l'événement 'close' -->
+      <!-- <ProfileEditor @close="isProfileEditorOpen = false" /> -->
+      <template #body>
+        <ProfileEditor @close="isProfileEditorOpen = false" />
+      </template>
     </USlideover>
   </div>
 </template>
