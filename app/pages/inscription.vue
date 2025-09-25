@@ -33,7 +33,6 @@ const showConfirmPassword = ref(false)
 
 const loading = ref(false)
 const apiError = ref<string | null>(null)
-const url = useRuntimeConfig().public.apiBase;
 
 const regionsRes = await get(`/api/locations/regions/getall`)
 const regions = ref(regionsRes.data)

@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import type { Form } from '#ui/types'
-const { data: user, refresh, token } = useAuth() // `refresh` permet de recharger les données utilisateur
+const { data: user, getSession , token } = useAuth() // `refresh` permet de recharger les données utilisateur
 const { patch } = useApi()
 
 // On définit les événements que ce composant peut émettre (ici, juste 'close')
@@ -11,7 +11,6 @@ const emit = defineEmits(['close'])
 const form = ref<Form<any> | null>(null)
 const loading = ref(false)
 const toast = useToast()
-const url = useRuntimeConfig().public.apiBase;
 
 // On crée une copie locale et réactive des données de l'utilisateur pour le formulaire.
 // C'est une bonne pratique pour ne pas modifier directement l'objet `user` global.
@@ -46,7 +45,7 @@ async function onSubmit() {
     toast.add({ title: 'Profil mis à jour avec succès !', color: 'green' })
     
     // On rafraîchit la session pour que toute l'application ait les nouvelles données
-    await refresh()
+    await getSession()
 
     // On ferme le panneau
     emit('close')
