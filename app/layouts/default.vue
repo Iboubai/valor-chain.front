@@ -87,11 +87,9 @@ const itemsVerticalNav = ref<NavigationMenuItem[]>([
 ])
 
 const isProfileEditorOpen = ref(false)
-const showProfilePanel = ref(false)
 
 const openProfilePanel = () => {
   isProfileEditorOpen.value = true
-  console.log("Ouverture du panneau de profil")
 }
 
 const itemsMenuProfil = ref<DropdownMenuItem[]>([
@@ -181,7 +179,7 @@ const itemsMenuProfil = ref<DropdownMenuItem[]>([
         <UNavigationMenu :links="navigationLinks" @click="isMobileMenuOpen = false" />
       </div>
     </USlideover> -->
-    <USlideover v-model:open="isProfileEditorOpen" title="First slideover" :ui="{ footer: 'justify-end' }">      
+    <USlideover v-model:open="isProfileEditorOpen" title="First slideover" :ui="{ footer: 'justify-end' } ">      
       <template #header>
         <div class="flex items-center justify">
           <h2 class="text-xl font-semibold">Modifier mon profil</h2>          
