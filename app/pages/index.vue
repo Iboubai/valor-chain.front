@@ -14,7 +14,16 @@ const userFullName = computed(() => `${user.value?.data?.firstName || ''} ${user
 
 <template>
   <div>
-    Bienvenue sur votre tableau de bord, {{ userFullName }} !
+    <div class="flex items-center justify-center h-64 bg-gray-50 relative">
+      <span
+        class="absolute text-gray-300 text-4xl font-bold select-none"
+        style="font-family: 'Comic Sans MS', cursive, sans-serif;"
+      >
+        Bienvenue sur votre tableau de bord, {{ userFullName }} !
+      </span>
+    </div>
+
+    
     <!-- Titre de la page --
     <div class="mb-8">
       <h1 class="text-3xl font-bold">Tableau de bord</h1>

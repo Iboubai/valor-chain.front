@@ -42,17 +42,16 @@ async function onSubmit() {
     await patch(`/api/auth/${user.value?.data.id}`, state, token.value || undefined)
 
     // Si la mise à jour réussit :
-    toast.add({ title: 'Profil mis à jour avec succès !', color: 'green' })
+    toast.add({ title: 'Profil mis à jour avec succès ✅', color: 'green' })
     
     // On rafraîchit la session pour que toute l'application ait les nouvelles données
     await getSession()
 
     // On ferme le panneau
     emit('close')
-
   } catch (error) {
     toast.add({ title: 'Erreur lors de la mise à jour', description: 'Veuillez réessayer.', color: 'red' })
-    console.error("Erreur de mise à jour du profil:", error)
+    console.error("Erreur de mise à jour ❌", error)
   } finally {
     loading.value = false
   }
