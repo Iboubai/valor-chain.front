@@ -1,39 +1,39 @@
 <template>
   <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-    <UFormField label="Nom de la parcelle" name="name" required>
+    <UFormField label="Nom du cheptel" name="name" required>
       <UInput 
         v-model="state.name" 
-        placeholder="Ex: Bande de maraichage" 
+        placeholder="Ex: Troupeau de moutons" 
         autofocus 
         autocomplete="off" class="w-full"
       />
     </UFormField>
     
-    <UFormField label="Description de la parcelle" name="description">
+    <UFormField label="Description du cheptel" name="description">
       <UInput 
         v-model="state.description" 
-        placeholder="Ex: Endroit ensoleillé" 
+        placeholder="Ex: Pour la production de laine" 
         autocomplete="off" class="w-full"
       />
     </UFormField>
 
-    <UFormField label="Superficie" name="superficie" required>
-      <UInput v-model.number="state.superficie" type="number" step="0.1">
+    <UFormField label="Effectif" name="effectif" required>
+      <UInput v-model.number="state.effectif" type="number" step="1">
         <template #trailing>
-          <span class="text-gray-500 dark:text-gray-400 text-xs">ha</span>
+          <span class="text-gray-500 dark:text-gray-400 text-xs">tête</span>
         </template>
       </UInput>
     </UFormField>
 
-    <UFormField label="Type de sol" name="typeId" required>
+    <UFormField label="Type population" name="typeId" required>
       <!-- key pour forcer refresh quand state.typeId change -->
       <USelectMenu 
         :key="`type-${state.typeId ?? 'none'}`"
         v-model="state.typeId" 
-        :items="parcelleTypes" 
+        :items="cheptelTypes" 
         label-key="name" 
         value-key="id" 
-        placeholder="Sélectionner le type de sol" 
+        placeholder="Sélectionner le type de population" 
         class="w-full" 
       />
     </UFormField>
@@ -56,8 +56,8 @@ const { data: user } = useAuth()
 const { get } = useApi()
 
 // données pour selects
-const parcelleTypesRes = await get(`/api/exploitation/parcelles/getallparcelletypes`)
-const parcelleTypes = ref(parcelleTypesRes.data || [])
+const cheptelTypesRes = await get(`/api/exploitation/cheptels/getallchepteltypes`)
+const cheptelTypes = ref(cheptelTypesRes.data || [])
 
 const emit = defineEmits<{
   (e: 'save', payload: any): void
@@ -65,11 +65,11 @@ const emit = defineEmits<{
 }>()
 
 const props = defineProps<{
-  parcelle?: {
+  cheptel?: {
     id: number
     name: string
     description?: string
-    superficie?: number
+    effectif?: number
     typeId?: number
     statusId?: number
     createdDate: undefined
@@ -81,31 +81,31 @@ const state = reactive({
   userid: user.value?.data.id,
   name: undefined as string | undefined,
   description: undefined as string | undefined,
-  superficie: undefined as number | undefined,
+  effectif: undefined as number | undefined,
   typeId: undefined as number | undefined,
   createdDate: undefined,
   statusId: undefined as number | undefined
 })
 
 watch(
-  () => props.parcelle,
-  async (newParcelle) => {
+  () => props.cheptel,
+  async (newCheptel) => {
     // debug    
-    if (newParcelle) {
-      state.id = newParcelle.id
-      state.name = newParcelle.name
-      state.description = newParcelle.description
-      state.superficie = newParcelle.superficie
-      state.typeId = newParcelle.type.id
-      //state.statusId = newParcelle.statusId
-      state.createdDate = newParcelle.createdDate
+    if (newCheptel) {    
+      state.id = newCheptel.id
+      state.name = newCheptel.name
+      state.description = newCheptel.description
+      state.effectif = newCheptel.effectif
+      state.typeId = newCheptel.type.id
+      //state.statusId = newCheptel.statusId
+      state.createdDate = newCheptel.createdDate
       // attendre le DOM au cas où les selects ont besoin d'un nextTick      
       await nextTick()
     } else {
       state.id = undefined
       state.name = undefined
       state.description = undefined
-      state.superficie = undefined
+      state.effectif = undefined
       state.typeId = undefined
       state.statusId = 1
       state.createdDate = undefined
@@ -118,7 +118,7 @@ watch(
 const schema = z.object({
   name: z.string({ required_error: 'Le nom est requis.' }).min(3),
   description: z.string().optional(),
-  superficie: z.number({ required_error: 'La superficie est requise.' }).positive(),
+  effectif: z.number({ required_error: 'L\'effectif est requise.' }).positive(),
   typeId: z.number()
 })
 

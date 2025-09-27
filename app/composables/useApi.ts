@@ -27,7 +27,6 @@ export function useApi() {
 
   // Fonction POST
   const postAutorized = async <T>(endpoint: string, body: any, token?: string): Promise<T> => {
-    console.log(body)
     const data = await $fetch<T>(`${config.public.apiBase}${endpoint}`, {
       method: 'POST',
       body,
