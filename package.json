@@ -16,13 +16,18 @@
     "@nuxt/ui": "^3.3.2",
     "@nuxtjs/i18n": "^10.0.6",
     "@sidebase/nuxt-auth": "^0.6.7",
+    "chart.js": "^4.5.0",
     "eslint": "^9.33.0",
+    "frappe-gantt": "^1.0.3",
     "nuxt": "^4.0.3",
     "nuxt-security": "^2.4.0",
     "sweetalert2": "^11.23.0",
     "typescript": "^5.9.2",
     "vue": "^3.5.18",
+    "vue-chartjs": "^5.3.2",
+    "vue-ganttastic": "^0.9.34",
     "vue-router": "^4.5.1",
+    "vuedraggable": "^4.1.0",
     "zod": "^4.1.11"
   },
   "devDependencies": {

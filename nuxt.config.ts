@@ -20,6 +20,9 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/test-utils',
   ],
+  build: {
+    transpile: ['vue-ganttastic']
+  },
   
   css: ['~/assets/css/main.css'],
 
