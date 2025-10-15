@@ -1,8 +1,11 @@
-// On peut aussi importer les types pour les propriétés complexes
+// composables/Parcelle.ts
+
+// Interfaces pour les objets imbriqués
 export interface SoilType {
   id: number;
   name: string;
-  // ...
+  description: string;
+  caracteristiques: string;
 }
 
 export interface Status {
@@ -10,43 +13,66 @@ export interface Status {
   name: string;
 }
 
-// Définition de la classe Parcelle
-export class Parcelle {
+export interface SpeculationData {
+  id?: number; // L'ID de la spéculation de base
+  name: string;
+  variety: string;
+  plantingDate: string;
+  density: number;
+  specId: number;
+}
+
+export interface TaskData {
   id: number;
+  title: string;
+  start: string;
+  end: string;
+  progress: number;
+  done: boolean;
+}
+
+export interface BudgetData {
+  id: number;
+  label: string;
+  type: string;
+  amount: number;
+  date: string;  
+}
+
+// La classe principale
+export class Parcelle {
+  id: number | null;
   userId: string;
   name: string;
   description: string;
-  superficie: number;
+  superficie: number | null;
   type: SoilType | null;
   status: Status | null;
   createdDate: string;
   updatedDate: string | null;
   isActive: boolean;
-  speculations: any[] | null;
+  speculations: SpeculationData[];
+  tasks: TaskData[];
+  budgets: BudgetData[];
 
-  // Le constructeur permet de créer de nouvelles instances facilement
-  constructor(data: Partial<Parcelle> = {}) {
-    this.id = data.id || 0;
-    this.userId = data.userId || '';
-    this.name = data.name || '';
-    this.description = data.description || '';
-    this.superficie = data.superficie || 0;
-    this.type = data.type || null;
-    this.status = data.status || null;
-    this.createdDate = data.createdDate || new Date().toISOString();
-    this.updatedDate = data.updatedDate || null;
-    this.isActive = data.isActive !== undefined ? data.isActive : true;
-    this.speculations = data.speculations || null;
-  }
-
-  // Exemple de méthode (logique métier liée à la parcelle)
-  // Retourne le nom complet avec la superficie
-  getFullNameWithArea(): string {
-    return `${this.name} (${this.superficie} ha)`;
-  }
-
-  // Autre exemple : vérifier si la parcelle est en culture
-  isCurrentlyCultivated(): boolean {
-    return this.status?.name === 'En Culture';
+  constructor(data?: Partial<Parcelle>) {
+    this.id = data?.id || null;
+    this.userId = data?.userId || '';
+    this.name = data?.name || '';
+    this.description = data?.description || '';
+    this.superficie = data?.superficie || null;
+    
+    // Initialisation sécurisée des objets imbriqués
+    this.type = data?.type || null;
+    this.status = data?.status || null;
+    
+    this.createdDate = data?.createdDate || new Date().toISOString();
+    this.updatedDate = data?.updatedDate || null;
+    this.isActive = data?.isActive ?? true; // '??' gère correctement `false`
+    
+    // Assure que 'speculations' est toujours un tableau
+    this.speculations = data?.speculations || [];
+    this.tasks = data?.tasks || [];
+    this.budgets = data?.budgets || [];
   }
 }

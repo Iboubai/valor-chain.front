@@ -1,0 +1,10 @@
+.gantt .bar {
+  fill: #00bcd4;
+}
+.gantt .bar-progress {
+  fill: #008c9e;
+}
+.gantt .bar-label {
+  fill: #fff;
+  font-size: 12px;
+}

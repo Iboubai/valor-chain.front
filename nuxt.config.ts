@@ -24,7 +24,10 @@ export default defineNuxtConfig({
     transpile: ['vue-ganttastic']
   },
   
-  css: ['~/assets/css/main.css'],
+  css: [
+    '~/assets/css/main.css',
+    '~/assets/css/frappe-gantt.css'
+  ],
 
   runtimeConfig: {
     public: { 
