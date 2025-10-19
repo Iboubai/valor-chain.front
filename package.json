@@ -17,6 +17,7 @@
     "@nuxtjs/i18n": "^10.0.6",
     "@sidebase/nuxt-auth": "^0.6.7",
     "chart.js": "^4.5.0",
+    "dayjs": "^1.11.18",
     "eslint": "^9.33.0",
     "frappe-gantt": "^0.6.1",
     "nuxt": "^4.0.3",

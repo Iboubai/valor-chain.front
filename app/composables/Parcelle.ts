@@ -15,28 +15,31 @@ export interface Status {
 
 export interface SpeculationData {
   id?: number; // L'ID de la spéculation de base
+  parcelleId: number
   name: string;
   variety: string;
   plantingDate: string;
   density: number;
-  specId: number;
+  speculationId: number;
 }
 
 export interface TaskData {
-  id: number;
+  id?: number;
+  parcelleId: number
   title: string;
-  start: string;
-  end: string;
+  startDate: string;
+  endDate: string;
   progress: number;
   done: boolean;
 }
 
 export interface BudgetData {
-  id: number;
-  label: string;
+  id?: number;
+  parcelleId: number
+  title: string;
   type: string;
   amount: number;
-  date: string;  
+  executionDate: string;
 }
 
 // La classe principale
@@ -47,7 +50,9 @@ export class Parcelle {
   description: string;
   superficie: number | null;
   type: SoilType | null;
+  typeId: number | null;
   status: Status | null;
+  statusId: number | null;
   createdDate: string;
   updatedDate: string | null;
   isActive: boolean;
@@ -65,6 +70,8 @@ export class Parcelle {
     // Initialisation sécurisée des objets imbriqués
     this.type = data?.type || null;
     this.status = data?.status || null;
+    this.typeId = data?.typeId || null;
+    this.statusId = data?.statusId || null;
     
     this.createdDate = data?.createdDate || new Date().toISOString();
     this.updatedDate = data?.updatedDate || null;
